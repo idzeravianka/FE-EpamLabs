@@ -2,10 +2,6 @@ import React from 'react';
 import './table-component.css';
 
 class TableComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <table className="table-component">
