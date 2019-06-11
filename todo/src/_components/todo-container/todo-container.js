@@ -7,8 +7,6 @@ class ToDoContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.addNewTask = this.addNewTask.bind(this);
-    this.removeTask = this.removeTask.bind(this);
     this.state = {
       tasks: saveData.getData()
     };
@@ -35,8 +33,8 @@ class ToDoContainer extends React.Component {
   render() {
     return (
       <div>
-        <InputComponent addNewTask={this.addNewTask} />
-        <TableComponent tasks={this.state.tasks} removeTask={this.removeTask} />
+        <InputComponent addNewTask={(e) => this.addNewTask(e)} />
+        <TableComponent tasks={this.state.tasks} removeTask={(e) => this.removeTask(e)} />
       </div>
     );
   }
