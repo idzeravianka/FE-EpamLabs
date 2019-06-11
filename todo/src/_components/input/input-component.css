@@ -1,0 +1,13 @@
+.input-component{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.input-component__input{
+    min-width: 245px;
+}
+
+.input-component__btn{
+    box-sizing: border-box;
+    min-width: 75px;
+}

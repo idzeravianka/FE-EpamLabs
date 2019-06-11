@@ -1,0 +1,16 @@
+.table-component{
+    margin: 0 auto;
+    width: 320px;
+}
+
+.table-component__id{
+    width: 15px;
+}
+
+.table-component__task{
+    width: 290px;
+}
+
+.table-component__remove-btn{
+    width: 15px;
+}
