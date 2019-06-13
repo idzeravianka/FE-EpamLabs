@@ -1,13 +1,25 @@
 .input-component{
     margin: 0 auto;
     width: fit-content;
+    max-width: 320px;
+    display: flex;
 }
 
 .input-component__input{
-    min-width: 245px;
+    min-width: 242px;
+    margin: 3px 0;
+}
+
+.input-component__description{
+    width: 240px;
+    min-height: 50px;
+    resize: none;
+    margin: 3px 0;
 }
 
 .input-component__btn{
     box-sizing: border-box;
-    min-width: 75px;
+    min-width: 70px;
+    padding: 0;
+    margin: 3px 3px 7px;
 }

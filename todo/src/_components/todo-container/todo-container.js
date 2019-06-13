@@ -12,16 +12,19 @@ class ToDoContainer extends React.Component {
     };
   }
 
-  addNewTask(task) {
-    let tmpState = this.state.tasks;
-    
-    tmpState.push({id: this.state.tasks.length, task: task});
-    this.setState({ tasks: tmpState });
+  addNewTask = (taskName, description) => {
+    let tmpState = Object.assign([], this.state.tasks);
 
+    let currenTime = new Date().toUTCString();
+    let nextId = tmpState.length;
+    
+    tmpState.push({id: nextId, task: taskName, description: description, date: currenTime });
+    this.setState({ tasks: tmpState });
+    
     saveData.saveData(tmpState);
   }
 
-  removeTask(id) {
+  removeTask = (id) => {
     let tmpState = this.state.tasks.filter(task => task.id !== id);
     tmpState.map((task) => (task.id > id) ? task.id-- : task.id);
 
@@ -33,8 +36,8 @@ class ToDoContainer extends React.Component {
   render() {
     return (
       <div>
-        <InputComponent addNewTask={(e) => this.addNewTask(e)} />
-        <TableComponent tasks={this.state.tasks} removeTask={(e) => this.removeTask(e)} />
+        <InputComponent addNewTask={this.addNewTask} />
+        <TableComponent tasks={this.state.tasks} removeTask={this.removeTask} />
       </div>
     );
   }
