@@ -1,0 +1,25 @@
+.chat-component {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .chat-component__message_left {
+    width: 55%;
+    display: inline-block;
+  }
+  .chat-component__message_right {
+    width: 55%;
+    float: right;
+  }
+  .chat-component__text-area {
+    width: 90%;
+    height: 85px;
+    resize: none;
+  }
+  .chat-component__send-btn {
+    margin-left: 5px;
+    margin-top: -60px;
+  }
