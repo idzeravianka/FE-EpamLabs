@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import * as Firebase from 'firebase';
-import * as localStorageService from '../../_services/saveData-service';
 import './chat.css';
 
-export default class Chat extends Component {
+class Chat extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +14,7 @@ export default class Chat extends Component {
   }
 
   componentWillMount() {
-    const username = localStorageService.getUser().email.split('@')[0];
+    const username = this.props.testStore.username;
     this.setState({username: username ? username : 'Unknown'})
     const messagesRef = Firebase.database().ref('messages')
       .orderByKey()
@@ -46,7 +46,12 @@ export default class Chat extends Component {
   onAddMessage = (event) => {
     event.preventDefault();
     Firebase.database().ref('messages').push({text: this.input.value, user: this.state.username});
+    this.props.onAddMessage(this.input.value);
     this.input.value = '';
+  }
+
+  signOut = () =>{
+    Firebase.auth().signOut();
   }
 
   render() {
@@ -68,7 +73,19 @@ export default class Chat extends Component {
         <textarea className="chat-component__text-area" ref={node => this.input = node}></textarea>
         <button className="chat-component__send-btn " onClick={this.onAddMessage}>Send</button>
       </div>
+      <button onClick={this.signOut}>SignOut</button>
     </div>
     );
   }
 }
+
+export default connect(
+  state => ({
+    testStore: state
+  }),
+  dispatch => ({
+    onAddMessage: (message) => {
+      dispatch({ type: 'SEND_MESSAGE', payload: message});
+    }
+  })
+)(Chat);

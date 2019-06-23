@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Login from './_component/login/login-component';
 import Chat from './_component/chat/chat';
@@ -25,4 +26,9 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    testStore: state
+  }),
+  dispatch => ({})
+)(App);
