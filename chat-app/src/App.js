@@ -1,32 +1,64 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import Login from './_component/login/login-component';
+import * as Firebase from 'firebase/app';
+
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+
 import Chat from './_component/chat/chat';
-import fakeAuth from './_services/authorization-service';
+import Login from './_component/login/login-component';
+import Header from './_component/header/header-component';
 
-import Container from '@material-ui/core/Container';
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    fakeAuth.isAuthenticated === true
+const PrivateRoute = ({ component: Component, auth, ...rest }) => {
+  return <Route {...rest} render={(props) => (
+    auth
       ? <Component {...props} />
       : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
   )} />
-)
+}
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { auth: false };
+  }
+
+  componentDidMount() {
+    Firebase.auth().onAuthStateChanged((authenticated) => {
+      if (authenticated){
+        this.setState({ auth: true });
+        if(authenticated.displayName){
+          this.props.onSetUserName(authenticated.displayName);
+        }
+      } else {
+        this.setState({ auth: false });
+      }
+    });
+  }
+
+  signOut = () => {
+    Firebase.auth().signOut();
+  }
+
   render() {
-    return (
-      <Container maxWidth="md">
+    if (this.state.auth) {
+      return (
         <Router>
-          <Switch>
-            <PrivateRoute exact path='/' component={Chat} />
-            <Route path='/login' component={Login} />
-          </Switch>
+          <Header auth={this.state.auth} signOut={this.signOut}/>
+          <PrivateRoute exact path='/' component={Chat} auth={this.state.auth} />
+          <Redirect to='/' />
         </Router>
-      </Container>
-    );
+      )
+    }
+    return (
+      <Router>
+        <Header auth={this.state.auth}/>
+        <Switch>
+          <PrivateRoute exact path='/' component={Chat} auth={this.state.auth} />
+          <Route path='/login' component={Login} />
+        </Switch>
+      </Router>
+    )
   }
 }
 
@@ -34,5 +66,9 @@ export default connect(
   state => ({
     testStore: state
   }),
-  dispatch => ({})
+  dispatch => ({
+    onSetUserName: (username) => {
+      dispatch({ type: 'SET_USERNAME', payload: username });
+    }
+  })
 )(App);

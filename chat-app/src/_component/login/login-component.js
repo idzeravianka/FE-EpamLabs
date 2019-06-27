@@ -1,15 +1,10 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './login-component.css';
 import SignIn from './signIn-component';
-import SignUp from './registration-component';
+import SignUp from './signUp-component';
 
 class Login extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     setUserName = (username) => {
         if (username){
             this.props.onSetUserName(username);

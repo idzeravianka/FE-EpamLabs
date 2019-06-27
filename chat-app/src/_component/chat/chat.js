@@ -10,9 +10,6 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 class Chat extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
 
   componentWillMount() {
     const messagesRef = Firebase.database().ref('messages')
@@ -49,15 +46,15 @@ class Chat extends Component {
     this.input.value = '';
   }
 
-  signOut = () => {
-    Firebase.auth().signOut();
-    this.props.history.push('/login');
-  }
+  // signOut = () => {
+  //   Firebase.auth().signOut();
+  //   this.props.history.push('/login');
+  // }
 
   render() {
     return (
       <Container>
-        <Button onClick={this.signOut}>SignOut</Button>
+        {/* <Button onClick={this.signOut}>SignOut</Button> */}
         <Container>
           {this.props.testStore.messages.map((message, index) => {
             const _class = String(message.user) === String(this.props.testStore.username) ? 'chat-component__message_right chat-component' : 'chat-component__message_left chat-component';
