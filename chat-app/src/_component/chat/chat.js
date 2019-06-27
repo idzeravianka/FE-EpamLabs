@@ -1,40 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as Firebase from 'firebase';
+import * as Firebase from 'firebase/app';
 import './chat.css';
 
-class Chat extends Component {
-  constructor(props) {
-    super(props);
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
 
-    this.state = {
-      messages: [],
-      username: ''
-    };
-  }
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
+class Chat extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentWillMount() {
-    const username = this.props.testStore.username;
-    this.setState({username: username ? username : 'Unknown'})
     const messagesRef = Firebase.database().ref('messages')
       .orderByKey()
       .limitToLast(10);
 
     messagesRef.on('value', snapshot => {
       let messagesObj = snapshot.val();
-      let messages = [];
-      Object.keys(messagesObj).forEach(key =>  messages.push(messagesObj[key]));
-      messages = messages.map((message) => { return {text: message.text, user: message.user, id: message.key}})
-      this.setState({
-        messages: messages,
-      });
+      this.props.onGetMessages(messagesObj);
     });
   }
-  
+
   componentDidMount() {
     this.scrollToBottom();
   }
-  
+
   componentDidUpdate() {
     this.scrollToBottom();
   }
@@ -43,38 +37,58 @@ class Chat extends Component {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
+  keyPreddes = (event) => {
+    if (event.key === 'Enter') {
+      this.onAddMessage(event);
+    }
+  }
+
   onAddMessage = (event) => {
     event.preventDefault();
-    Firebase.database().ref('messages').push({text: this.input.value, user: this.state.username});
-    this.props.onAddMessage(this.input.value);
+    this.props.onSendMessage(this.props.testStore.username, this.input.value);
     this.input.value = '';
   }
 
-  signOut = () =>{
+  signOut = () => {
     Firebase.auth().signOut();
+    this.props.history.push('/login');
   }
 
   render() {
     return (
-      <div>
-        <div>
-            {this.state.messages.map((message) => {
-             const _class = message.user === this.state.username ? 'chat-component__message_left chat-component' : 'chat-component__message_right chat-component';
+      <Container>
+        <Button onClick={this.signOut}>SignOut</Button>
+        <Container>
+          {this.props.testStore.messages.map((message, index) => {
+            const _class = String(message.user) === String(this.props.testStore.username) ? 'chat-component__message_right chat-component' : 'chat-component__message_left chat-component';
             return (
-                <div className={_class}>
-                  <h3>{message.user}</h3>
-                  <p>{message.text}</p>
-                </div>
+              <Container maxWidth="sm" key={index} className={_class}>
+                <h3>{message.user}</h3>
+                <p>{message.text}</p>
+              </Container >
             )
-            })}
-            <div style={{ float:"left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}></div>
-        </div>
-      <div className="chat-component">
-        <textarea className="chat-component__text-area" ref={node => this.input = node}></textarea>
-        <button className="chat-component__send-btn " onClick={this.onAddMessage}>Send</button>
-      </div>
-      <button onClick={this.signOut}>SignOut</button>
-    </div>
+          })}
+          <div style={{ float: "left", clear: "both" }} ref={(el) => { this.messagesEnd = el; }}></div>
+        </Container>
+        <Grid container spacing={1} justify="center" alignItems='center'>
+          <Grid item xs={11}>
+            <TextField
+              id="outlined-full-width"
+              placeholder="Your message..."
+              fullWidth
+              margin="dense"
+              multiline
+              rows="3"
+              variant="outlined"
+              inputProps={{ ref: input => this.input = input }}
+              onKeyPress={this.keyPreddes}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <Button onClick={this.onAddMessage}>Send</Button>
+          </Grid>
+        </Grid>
+      </Container>
     );
   }
 }
@@ -84,8 +98,12 @@ export default connect(
     testStore: state
   }),
   dispatch => ({
-    onAddMessage: (message) => {
-      dispatch({ type: 'SEND_MESSAGE', payload: message});
+    onSendMessage: (username, message) => {
+      dispatch({ type: 'SEND_MESSAGE', payload: message, user: username });
+    },
+
+    onGetMessages: (messagesObj) => {
+      dispatch({ type: 'GET_MESSAGES', payload: messagesObj })
     }
   })
 )(Chat);

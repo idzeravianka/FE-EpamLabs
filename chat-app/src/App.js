@@ -5,6 +5,8 @@ import Login from './_component/login/login-component';
 import Chat from './_component/chat/chat';
 import fakeAuth from './_services/authorization-service';
 
+import Container from '@material-ui/core/Container';
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     fakeAuth.isAuthenticated === true
@@ -16,12 +18,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 class App extends React.Component {
   render() {
     return (
-      <Router>
-        <Switch>
-          <PrivateRoute exact path='/' component={Chat} />
-          <Route path='/login' component={Login} />
-        </Switch>
-      </Router>
+      <Container maxWidth="md">
+        <Router>
+          <Switch>
+            <PrivateRoute exact path='/' component={Chat} />
+            <Route path='/login' component={Login} />
+          </Switch>
+        </Router>
+      </Container>
     );
   }
 }

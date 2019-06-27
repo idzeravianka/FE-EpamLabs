@@ -1,11 +1,13 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import './login-component.css';
-import { connect } from 'react-redux';
 import fakeAuth from '../../_services/authorization-service';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import Button from '@material-ui/core/Button';
 
-class SignUp extends React.Component {
+import TextField from '@material-ui/core/TextField';
+
+export default class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = { email: '', password: '', nickName: '', redirectToReferrer: false };
@@ -15,13 +17,13 @@ class SignUp extends React.Component {
         this.setState({ [event.target.id]: event.target.value });
     }
 
-    handleSubmit = async (e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
 
         let email = e.target.email.value;
         let password = e.target.password.value;
 
-        await firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+        firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
             if (user) {
                 user.user.updateProfile({
                     displayName: this.state.nickName,
@@ -31,8 +33,7 @@ class SignUp extends React.Component {
             fakeAuth.authenticate(() => {
                 this.setState(() => ({ redirectToReferrer: true }));
             });
-
-            this.props.onSetUserName(this.state.nickName);
+            this.props.setUserName(this.state.nickName);
         }).catch(() => alert('Check your data!'));
     }
 
@@ -46,22 +47,11 @@ class SignUp extends React.Component {
         return (
             <form onSubmit={this.handleSubmit} className="login-component" >
                 <h3 className="login-component__title">Fitst Time? SignUp Now!</h3>
-                <input className="login-component__login-input" id="nickName" type="text" value={this.state.nickName} onChange={this.handleChange} required />
-                <input className="login-component__login-input" id="email" type="text" value={this.state.email} onChange={this.handleChange} required />
-                <input className="login-component__password-input" id="password" type="password" value={this.state.password} onChange={this.handleChange} required />
-                <button className="login-component__login-btn" onClick={this.login}>Login</button>
+                <TextField id="nickName" label="NickName" type="text" margin="normal" variant="outlined" value={this.state.nickName} onChange={this.handleChange} required />
+                <TextField id="email" label="Email" type="text" margin="normal" variant="outlined" value={this.state.email} onChange={this.handleChange} required />
+                <TextField id="password" label="Password" type="password" margin="normal" variant="outlined" value={this.state.password} onChange={this.handleChange} required />
+                <Button type="submit" onClick={this.login}>Login</Button>
             </form>
         )
     }
 }
-
-export default connect(
-    state => ({
-        testStore: state
-    }),
-    dispatch => ({
-        onSetUserName: (username) => {
-            dispatch({ type: 'SET_USERNAME', payload: username });
-        }
-    })
-)(SignUp);
