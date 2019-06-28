@@ -46,11 +46,6 @@ class Chat extends Component {
     this.input.value = '';
   }
 
-  // signOut = () => {
-  //   Firebase.auth().signOut();
-  //   this.props.history.push('/login');
-  // }
-
   render() {
     return (
       <Container>
