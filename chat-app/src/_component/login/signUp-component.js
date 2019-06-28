@@ -35,7 +35,7 @@ export default class SignUp extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="login-component" >
-                <h3 className="signUp-component__title">Fitst Time? SignUp Now!</h3>
+                <h3 className="signUp-component__title">Registration</h3>
                 <TextField 
                     id="signUp__nickName" 
                     label="NickName" 

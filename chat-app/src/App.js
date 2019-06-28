@@ -52,7 +52,7 @@ class App extends React.Component {
     }
     return (
       <Router>
-        <Header auth={this.state.auth}/>
+        {/* <Header auth={this.state.auth}/> */}
         <Switch>
           <PrivateRoute exact path='/' component={Chat} auth={this.state.auth} />
           <Route path='/login' component={Login} />

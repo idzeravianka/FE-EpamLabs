@@ -12,11 +12,10 @@ export default class Header extends React.Component {
     render() {
         if (this.props.auth) {
             return (
-                <AppBar /*className="header-component__sign-out"*/ position="static">
+                <AppBar position="sticky">
                     <Button onClick={this.props.signOut}>Sign Out</Button>
                 </AppBar>
             )
         }
-        return <div>sdfsdfsdf</div>
     }
 }

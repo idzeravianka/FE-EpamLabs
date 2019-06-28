@@ -23,6 +23,7 @@ export default class SignIn extends React.Component {
         let password = e.target.signIn__password.value;
 
         firebase.auth().signInWithEmailAndPassword(email, password).then((response) => {
+            console.log(response.user.displayName);
             this.props.setUserName(response.user.displayName);
         }).catch(() => alert('Check your data!'));
     }
@@ -30,7 +31,7 @@ export default class SignIn extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="login-component">
-                <h3 className="login-component__title">Sign In</h3>
+                <h3 className="login-component__title">Login</h3>
                 <TextField 
                     id="signIn__email" 
                     label="Email" 
