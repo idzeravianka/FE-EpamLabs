@@ -1,5 +1,4 @@
 import React from 'react';
-import './header-component.css';
 
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';

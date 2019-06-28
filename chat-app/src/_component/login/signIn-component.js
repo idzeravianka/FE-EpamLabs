@@ -1,9 +1,9 @@
 import React from 'react';
-import './login-component.css';
 import * as firebase from 'firebase/app';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 
 export default class SignIn extends React.Component {
     constructor(props) {
@@ -30,29 +30,36 @@ export default class SignIn extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="login-component">
-                <h3 className="login-component__title">Login</h3>
-                <TextField 
-                    id="signIn__email" 
-                    label="Email" 
-                    type="text" 
-                    margin="normal" 
-                    variant="outlined" 
-                    value={this.state.email} 
-                    onChange={this.handleChange} 
-                    required 
-                />
-                <TextField 
-                    id="signIn__password" 
-                    label="Password" 
-                    type="password" 
-                    margin="normal" 
-                    variant="outlined" 
-                    value={this.state.password} 
-                    onChange={this.handleChange} 
-                    required 
-                />
-                <Button type="submit">Login</Button>
+            <form onSubmit={this.handleSubmit}>
+                <Grid 
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <h3>Login</h3>
+                    <TextField 
+                        id="signIn__email" 
+                        label="Email" 
+                        type="text" 
+                        margin="normal" 
+                        variant="outlined" 
+                        value={this.state.email} 
+                        onChange={this.handleChange} 
+                        required 
+                    />
+                    <TextField 
+                        id="signIn__password" 
+                        label="Password" 
+                        type="password" 
+                        margin="normal" 
+                        variant="outlined" 
+                        value={this.state.password} 
+                        onChange={this.handleChange} 
+                        required 
+                    />
+                    <Button type="submit">Login</Button>
+                </Grid>
             </form>
         )
     }

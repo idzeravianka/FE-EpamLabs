@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Firebase from 'firebase/app';
-import './chat.css';
 
+import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+
+const styles = () => ({
+  authUser:{
+    margin: "10px 0 0 auto",
+    padding: "1px 25px",
+    borderRadius: "20px",
+    backgroundColor: "rgba(215, 228, 250, 0.3)",
+    border: "1px solid #afc7f0",
+    wordWrap: "break-word"
+  },
+  otherUsers:{
+    margin: "10px auto 0 0",
+    padding: "1px 25px",
+    borderRadius: "20px",
+    backgroundColor: "rgba(247, 236, 193, 0.3)",
+    border: "1px solid #e8d89b",
+    wordWrap: "break-word"
+  }
+});
 
 class Chat extends Component {
 
@@ -47,12 +66,12 @@ class Chat extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <Container>
-        {/* <Button onClick={this.signOut}>SignOut</Button> */}
         <Container>
           {this.props.testStore.messages.map((message, index) => {
-            const _class = String(message.user) === String(this.props.testStore.username) ? 'chat-component__message_right chat-component' : 'chat-component__message_left chat-component';
+            const _class = String(message.user) === String(this.props.testStore.username) ? classes.authUser : classes.otherUsers;
             return (
               <Container maxWidth="sm" key={index} className={_class}>
                 <h3>{message.user}</h3>
@@ -98,4 +117,4 @@ export default connect(
       dispatch({ type: 'GET_MESSAGES', payload: messagesObj })
     }
   })
-)(Chat);
+)(withStyles(styles)(Chat));

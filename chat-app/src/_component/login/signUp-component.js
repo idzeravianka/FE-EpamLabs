@@ -1,9 +1,9 @@
 import React from 'react';
-import './login-component.css';
 import * as firebase from 'firebase/app';
 import Button from '@material-ui/core/Button';
 
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 
 export default class SignUp extends React.Component {
     constructor(props) {
@@ -34,39 +34,46 @@ export default class SignUp extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="login-component" >
-                <h3 className="signUp-component__title">Registration</h3>
-                <TextField 
-                    id="signUp__nickName" 
-                    label="NickName" 
-                    type="text" 
-                    margin="normal" 
-                    variant="outlined" 
-                    value={this.state.nickName} 
-                    onChange={this.handleChange} 
-                    required 
-                />
-                <TextField 
-                    id="signUp__email" 
-                    label="Email" 
-                    type="text" 
-                    margin="normal" 
-                    variant="outlined" 
-                    value={this.state.email} 
-                    onChange={this.handleChange} 
-                    required 
-                />
-                <TextField 
-                    id="signUp__password" 
-                    label="Password" 
-                    type="password" 
-                    margin="normal" 
-                    variant="outlined" 
-                    value={this.state.password} 
-                    onChange={this.handleChange} 
-                    required 
-                />
-                <Button type="submit" onClick={this.login}>Sign Up</Button>
+            <form onSubmit={this.handleSubmit}>
+                <Grid 
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <h3>Registration</h3>
+                    <TextField 
+                        id="signUp__nickName" 
+                        label="NickName" 
+                        type="text" 
+                        margin="normal" 
+                        variant="outlined" 
+                        value={this.state.nickName} 
+                        onChange={this.handleChange} 
+                        required 
+                    />
+                    <TextField 
+                        id="signUp__email" 
+                        label="Email" 
+                        type="text" 
+                        margin="normal" 
+                        variant="outlined" 
+                        value={this.state.email} 
+                        onChange={this.handleChange} 
+                        required 
+                    />
+                    <TextField 
+                        id="signUp__password" 
+                        label="Password" 
+                        type="password" 
+                        margin="normal" 
+                        variant="outlined" 
+                        value={this.state.password} 
+                        onChange={this.handleChange} 
+                        required 
+                    />
+                    <Button type="submit" onClick={this.login}>Sign Up</Button>
+                </Grid>
             </form>
         )
     }
