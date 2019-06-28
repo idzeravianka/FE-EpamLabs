@@ -5,6 +5,10 @@ export default function username ( state = initialState, action){
         return [
             action.payload
         ]
+    } else if (action.type === 'USER_LOGOUT'){
+        return [
+            action.payload
+        ]
     }
     return state;
 }

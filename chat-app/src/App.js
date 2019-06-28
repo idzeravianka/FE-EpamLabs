@@ -37,7 +37,11 @@ class App extends React.Component {
   }
 
   signOut = () => {
-    Firebase.auth().signOut();
+    Firebase.auth().signOut().then(()=>{
+      setTimeout(()=>{
+        this.props.onUserLogOut();
+      }, 0)
+    });
   }
 
   render() {
@@ -52,7 +56,6 @@ class App extends React.Component {
     }
     return (
       <Router>
-        {/* <Header auth={this.state.auth}/> */}
         <Switch>
           <PrivateRoute exact path='/' component={Chat} auth={this.state.auth} />
           <Route path='/login' component={Login} />
@@ -67,6 +70,10 @@ export default connect(
     testStore: state
   }),
   dispatch => ({
+    onUserLogOut: () => {
+      dispatch({ type: 'USER_LOGOUT', payload: "undefined" })
+    },
+
     onSetUserName: (username) => {
       dispatch({ type: 'SET_USERNAME', payload: username });
     }

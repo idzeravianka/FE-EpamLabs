@@ -7,6 +7,10 @@ export default function messagesList ( state = [], action){
         return [
             ...action.payload
         ]
+    } else if (action.type === 'USER_LOGOUT'){
+        return [
+            action.payload
+        ]
     }
     return state;
 }

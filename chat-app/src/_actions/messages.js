@@ -14,6 +14,8 @@ export const asyncAddMessage = store => next => action => {
         next(action);
     } else if (action.type === 'SET_USERNAME') {
         next(action);
+    } else if (action.type === 'USER_LOGOUT'){
+        next(action);
     }
 }
 
