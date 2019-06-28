@@ -10,21 +10,20 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 const styles = () => ({
+  root: {
+    borderRadius: "20px",
+    padding: "1px 25px",
+    wordWrap: "break-word"
+  },
   authUser:{
     margin: "10px 0 0 auto",
-    padding: "1px 25px",
-    borderRadius: "20px",
     backgroundColor: "rgba(215, 228, 250, 0.3)",
-    border: "1px solid #afc7f0",
-    wordWrap: "break-word"
+    border: "1px solid #afc7f0"
   },
   otherUsers:{
     margin: "10px auto 0 0",
-    padding: "1px 25px",
-    borderRadius: "20px",
     backgroundColor: "rgba(247, 236, 193, 0.3)",
-    border: "1px solid #e8d89b",
-    wordWrap: "break-word"
+    border: "1px solid #e8d89b"
   }
 });
 
@@ -73,7 +72,7 @@ class Chat extends Component {
           {this.props.testStore.messages.map((message, index) => {
             const _class = String(message.user) === String(this.props.testStore.username) ? classes.authUser : classes.otherUsers;
             return (
-              <Container maxWidth="sm" key={index} className={_class}>
+              <Container maxWidth="sm" key={index} className={`${_class} ${classes.root}`}>
                 <h3>{message.user}</h3>
                 <p>{message.text}</p>
               </Container >
