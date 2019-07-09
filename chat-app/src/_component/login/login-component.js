@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import SignIn from './signIn-component';
 import SignUp from './signUp-component';
 
+const packageJSON = require('../../../package.json');
+
 function TabContainer(props) {
     return (
         <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -70,6 +72,7 @@ function Login(props) {
                     <SignUp setUserName={setUserName} from={props.location.state}></SignUp>
                 </TabContainer>
             }
+            <div>App version: {packageJSON.version}</div>
         </div>
     );
 }
