@@ -65,6 +65,7 @@ class Chat extends Component {
   }
 
   render() {
+    console.log('test_commit');
     const { classes } = this.props;
     return (
       <Container>
