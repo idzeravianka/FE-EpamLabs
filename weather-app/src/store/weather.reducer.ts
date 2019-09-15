@@ -21,6 +21,16 @@ export const weatherReducer = (
             return {
                 ...state
             };
+        case WeatherActionTypes.SearchWeatherDataSuccess:
+            return{
+                ...state,
+                weather: action.payload
+            }
+        case WeatherActionTypes.SearchWeatherDataError:
+            return{
+                ...state,
+                weather: action.payload
+            }
         default: return state;
     }
 }

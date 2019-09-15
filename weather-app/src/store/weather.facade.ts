@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {WeatherData} from '../app/model';
 
-import { LoadWeatherData, LoadWeatherDataError, LoadWeatherDataSuccess} from './weather.action';
+import { LoadWeatherData, LoadWeatherDataError, LoadWeatherDataSuccess, SearchWeatherData} from './weather.action';
 import { weatherQuery } from './weather.selectors';
 import { WeatherState } from './interfaces';
 
@@ -12,12 +12,11 @@ export class WeatherDataFacade{
 
     constructor(private store: Store<WeatherState>) {}
 
-    public loadWeather(city?: string): void {
-        this.store.dispatch(new LoadWeatherData(city));
+    public loadWeather(): void {
+        this.store.dispatch(new LoadWeatherData());
     }
 
-    public loadWeatherSuccess(weatherData: WeatherData){
-        console.log(weatherData);
-        this.store.dispatch(new LoadWeatherDataSuccess(weatherData));
+    public searchWeather(city: string) {
+        this.store.dispatch(new SearchWeatherData(city));
     }
 }

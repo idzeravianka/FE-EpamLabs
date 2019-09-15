@@ -26,7 +26,12 @@ export class GetWeatherServiceService {
     );
   }
 
-  getLocation(): Observable<any> {
+  public searchWeather(city: string){
+    console.log(city);
+    return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=5e172bca01d919aeab3be36d301d92f8`)
+  }
+
+  public getLocation(): Observable<any> {
     return new Observable(obs => {
       navigator.geolocation.getCurrentPosition(
         success => {

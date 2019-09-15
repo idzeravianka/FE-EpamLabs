@@ -8,6 +8,7 @@ import { WeatherDataFacade } from './weather.facade';
 import * as weatherActions from './weather.action';
 import { WeatherData } from 'src/app/model';
 import { GetWeatherServiceService } from 'src/app/services/get-weather-service.service';
+import { ConcatSource } from 'webpack-sources';
 
 @Injectable()
 export class WeatherEffects {
@@ -25,9 +26,27 @@ export class WeatherEffects {
         switchMap((): any => {
             return this.getWeatherService.getWeather().pipe(
                 map((resp: any) => {
-                    return new weatherActions.LoadWeatherDataSuccess({city: resp.city.name, temperature: resp.list[0].main.temp});
+                    return new weatherActions.LoadWeatherDataSuccess({ city: resp.city.name, temperature: resp.list[0].main.temp });
+                }),
+                catchError((): any => {
+                    return new weatherActions.LoadWeatherDataError({ city: 'Not Found', temperature: 0 });
                 })
             )
         })
     );
+
+    @Effect()
+    public searchWeather$: Observable<any> = this.actions$.pipe(
+        ofType<weatherActions.SearchWeatherData>(weatherActions.WeatherActionTypes.SearchWeatherData),
+        switchMap((city: any): any => {
+            return this.getWeatherService.searchWeather(city.payload).pipe(
+                map((resp: any) => {
+                    return new weatherActions.SearchWeatherDataSuccess({ city: resp.city.name, temperature: resp.list[0].main.temp });
+                }),
+                catchError((): any => {
+                    return of(new weatherActions.SearchWeatherDataError({ city: 'Not Found', temperature: 0 }));
+                })
+            )
+        })
+    )
 }
