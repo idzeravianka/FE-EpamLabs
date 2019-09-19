@@ -6,12 +6,7 @@ export const weatherReducer = (
     state: WeatherState = initialState,
     action: WeatherActions
 ): WeatherState => {
-    switch (action.type) {
-        case WeatherActionTypes.LoadWeatherData:
-            return {
-                ...state,
-            };
-        
+    switch (action.type) {        
         case WeatherActionTypes.LoadWeatherDataSuccess:
             return {
                 ...state,
@@ -19,7 +14,8 @@ export const weatherReducer = (
             };
         case WeatherActionTypes.LoadWeatherDataError:
             return {
-                ...state
+                ...state,
+                weather: action.payload
             };
         case WeatherActionTypes.SearchWeatherDataSuccess:
             return{

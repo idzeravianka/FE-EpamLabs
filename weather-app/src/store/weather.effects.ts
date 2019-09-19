@@ -1,22 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, filter, map, switchMap, take, delay, mapTo } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { WeatherDataFacade } from './weather.facade';
 import * as weatherActions from './weather.action';
-import { WeatherData } from 'src/app/model';
 import { GetWeatherServiceService } from 'src/app/services/get-weather-service.service';
-import { ConcatSource } from 'webpack-sources';
 
 @Injectable()
 export class WeatherEffects {
 
     constructor(
-        private http: HttpClient,
         private actions$: Actions,
-        private weatherFacade: WeatherDataFacade,
         private getWeatherService: GetWeatherServiceService
     ) { }
 
@@ -29,7 +24,7 @@ export class WeatherEffects {
                     return new weatherActions.LoadWeatherDataSuccess({ city: resp.city.name, temperature: resp.list[0].main.temp });
                 }),
                 catchError((): any => {
-                    return new weatherActions.LoadWeatherDataError({ city: 'Not Found', temperature: 0 });
+                    return of(new weatherActions.LoadWeatherDataError({ city: 'Not Found', temperature: 0 }));
                 })
             )
         })

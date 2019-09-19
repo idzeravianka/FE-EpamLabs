@@ -1,22 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { GetWeatherServiceService } from '../services/get-weather-service.service';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { WeatherData } from '../model';
-import { WeatherDataFacade } from 'src/store';
 
 @Component({
   selector: 'weather-container',
   templateUrl: './weather-container.component.html',
-  styleUrls: ['./weather-container.component.css']
+  styleUrls: ['./weather-container.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherContainerComponent implements OnInit {
 
-  public weatherData: WeatherData;
+  @Input() weatherData: WeatherData;
 
-  constructor(private weatherService: GetWeatherServiceService, private weatherFacade: WeatherDataFacade) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.weatherFacade.loadWeather();
-    this.weatherFacade.weather$.subscribe(res => this.weatherData = res);
-  }
+  ngOnInit() {}
 
 }

@@ -1,20 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { WeatherData } from '../model';
-import { WeatherDataFacade } from '../../store/weather.facade';
 import { HttpClient } from '@angular/common/http';
-import { catchError, filter, map, switchMap, take, delay } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { switchMap, catchError, distinctUntilChanged, map } from 'rxjs/operators';
+import { Observable, of, from, timer, throwError } from 'rxjs';
+import { navigatorToken } from './navigator.token';
+import { isFulfilled } from 'q';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetWeatherServiceService {
-  public weatherData: WeatherData = {
-    city: '',
-    temperature: 0
-  };
 
-  constructor(private weatherFacade: WeatherDataFacade, private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject(navigatorToken) private navigator: Navigator) { }
 
   public getWeather() {
     return this.getLocation().pipe(
@@ -26,14 +23,24 @@ export class GetWeatherServiceService {
     );
   }
 
-  public searchWeather(city: string){
-    console.log(city);
+  public searchWeather(city: string) {
     return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=5e172bca01d919aeab3be36d301d92f8`)
   }
 
-  public getLocation(): Observable<any> {
+  public checkCorrectCity(city: string) {
+    if (city != '') {
+      return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=5e172bca01d919aeab3be36d301d92f8`).pipe(
+        catchError((error) => {
+          return of({cod:404, message: "Not Found"});
+        })
+      );
+    }
+    return of({cod:404, message: "Not Found"});
+  }
+
+  private getLocation(): Observable<any> {
     return new Observable(obs => {
-      navigator.geolocation.getCurrentPosition(
+      this.navigator.geolocation.getCurrentPosition(
         success => {
           obs.next(success);
           obs.complete();

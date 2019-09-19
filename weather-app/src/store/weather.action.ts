@@ -1,4 +1,4 @@
-import { Action, createAction, props } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { WeatherData } from 'src/app/model';
 
 export enum WeatherActionTypes{
@@ -43,8 +43,7 @@ export class SearchWeatherDataSuccess implements Action{
 export class SearchWeatherDataError implements Action{
     public readonly type = WeatherActionTypes.SearchWeatherDataError;
 
-    constructor(public payload: WeatherData) {
-        console.log('error action');}
+    constructor(public payload: WeatherData) {}
 }
 
 export type WeatherActions = 

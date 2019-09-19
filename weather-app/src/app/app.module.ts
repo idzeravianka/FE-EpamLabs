@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,10 +13,9 @@ import { reducers } from '../store/store.config';
 import { WeatherDataFacade } from 'src/store';
 import { WeatherEffects } from 'src/store/weather.effects';
 import { HttpClientModule } from '@angular/common/http';
-import { WeatherDerectiveDirective } from './weather-container/weather-derective.directive';
-import { TemperaturePipePipe } from './weather-container/temperature-pipe.pipe';
+import { WeatherDerectiveDirective } from './derectives/weather-derective.directive';
+import { TemperaturePipePipe } from './pipes/temperature-pipe.pipe';
 import { SearchFormComponent } from './search-form/search-form.component';
-import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,10 @@ import { from } from 'rxjs';
     ]),
     StoreDevtoolsModule.instrument({maxAge: 25}),
   ],
-  providers: [WeatherDataFacade],
-  bootstrap: [AppComponent]
+  providers: [WeatherDataFacade, 
+    //{provide: navigatorToken, useValue: navigatorToken}
+  ],
+  bootstrap: [AppComponent],
+  // schemas:[ NO_ERRORS_SCHEMA ]
 })
 export class AppModule { }
