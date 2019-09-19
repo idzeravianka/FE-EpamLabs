@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { WeatherData } from '../model';
 import { HttpClient } from '@angular/common/http';
-import { switchMap, catchError, distinctUntilChanged, map } from 'rxjs/operators';
+import { switchMap, catchError, distinctUntilChanged, map, debounceTime } from 'rxjs/operators';
 import { Observable, of, from, timer, throwError } from 'rxjs';
 import { navigatorToken } from './navigator.token';
 import { isFulfilled } from 'q';
@@ -28,15 +28,32 @@ export class GetWeatherServiceService {
   }
 
   public checkCorrectCity(city: string) {
-    if (city != '') {
       return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=5e172bca01d919aeab3be36d301d92f8`).pipe(
-        catchError((error) => {
-          return of({cod:404, message: "Not Found"});
+        debounceTime(500),
+        map((response: any) => {
+          if(response.cod === "200"){
+            return true;
+          } else {
+            return false
+          }
+        }),
+        catchError(() => {
+          return of(false)
         })
       );
-    }
-    return of({cod:404, message: "Not Found"});
   }
+
+
+  // public checkCorrectCity(city: string) {
+  //   if (city != '') {
+  //     return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=5e172bca01d919aeab3be36d301d92f8`).pipe(
+  //       catchError((error) => {
+  //         return of({cod:404, message: "Not Found"});
+  //       })
+  //     );
+  //   }
+  //   return of({cod:404, message: "Not Found"});
+  // }
 
   private getLocation(): Observable<any> {
     return new Observable(obs => {
