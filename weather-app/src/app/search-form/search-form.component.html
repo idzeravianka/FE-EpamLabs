@@ -1,4 +1,4 @@
 <form [formGroup] = "searchFormControl">
     <input type="text" placeholder="Enter city..." formControlName="cityControl"/>
-    <button type="submit" (click)="searchCity($event)" [disabled]="searchFormControl.invalid">Search</button>
+    <button type="submit" (click)="searchCity($event)">Search</button>
 </form>

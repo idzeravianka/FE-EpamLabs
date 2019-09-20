@@ -8,8 +8,6 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WeatherDataFacade } from 'src/store/weather.facade';
 import { StoreModule } from '@ngrx/store';
-import { componentFactoryName } from '@angular/compiler';
-import { GetWeatherServiceService } from './services/get-weather-service.service';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
@@ -42,6 +40,7 @@ describe('AppComponent', () => {
   it('should trigger Facade', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    // app.weatherData$
+    app.ngOnInit();
+    expect(app.weatherData$).toBeTruthy();
   });
 });

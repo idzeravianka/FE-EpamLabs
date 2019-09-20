@@ -5,7 +5,6 @@ import { WeatherDataFacade } from 'src/store/weather.facade';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { GetWeatherServiceService } from '../services/get-weather-service.service';
 
 describe('SearchFormComponent', () => {
   let component: SearchFormComponent;
@@ -22,7 +21,7 @@ describe('SearchFormComponent', () => {
         StoreModule.forRoot({})
       ],
       declarations: [ SearchFormComponent ],
-      providers: [WeatherDataFacade]
+      providers: [ WeatherDataFacade ]
     })
     .compileComponents();
   }));
@@ -45,4 +44,5 @@ describe('SearchFormComponent', () => {
     component.searchCity();
     expect(spy.calls.any()).toBeTruthy();
   });
+  
 });
