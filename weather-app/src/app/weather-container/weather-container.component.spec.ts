@@ -4,7 +4,7 @@ import { WeatherContainerComponent } from './weather-container.component';
 import { StoreModule } from '@ngrx/store';
 import { WeatherDerectiveDirective } from '../derectives/weather-derective.directive';
 import { TemperaturePipePipe } from '../pipes/temperature-pipe.pipe';
-import { WeatherDataFacade } from 'src/store/weather.facade';
+import { WeatherDataFacade } from 'src/store/citiesWeatherData/weather.facade';
 
 describe('WeatherContainerComponent', () => {
   let component: WeatherContainerComponent;

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchFormComponent } from './search-form.component';
-import { WeatherDataFacade } from 'src/store/weather.facade';
+import { WeatherDataFacade } from 'src/store/citiesWeatherData/weather.facade';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';

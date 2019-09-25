@@ -10,22 +10,27 @@ export const weatherReducer = (
         case WeatherActionTypes.LoadWeatherDataSuccess:
             return {
                 ...state,
-                weather: action.payload
+                citiesWeatherData: [action.payload]
             };
         case WeatherActionTypes.LoadWeatherDataError:
             return {
                 ...state,
-                weather: action.payload
+                citiesWeatherData: [...state.citiesWeatherData, action.payload]
             };
         case WeatherActionTypes.SearchWeatherDataSuccess:
             return{
                 ...state,
-                weather: action.payload
+                citiesWeatherData: [action.payload, ...state.citiesWeatherData]
             }
         case WeatherActionTypes.SearchWeatherDataError:
             return{
                 ...state,
-                weather: action.payload
+                citiesWeatherData: [...state.citiesWeatherData, action.payload]
+            }
+        case WeatherActionTypes.SearchAllCitiesFromStorageSuccess:
+            return{
+                ...state,
+                citiesWeatherData: [...state.citiesWeatherData, action.payload]
             }
         default: return state;
     }

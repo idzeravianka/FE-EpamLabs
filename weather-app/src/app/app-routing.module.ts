@@ -1,8 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { WeatherContainerComponent } from './weather-container/weather-container.component';
+import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 
+const childrenRoutes: Routes = [
+  { path: 'city/:id', component: CurrentWeatherComponent },
+  { path: 'city', component: CurrentWeatherComponent }
+];
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: WeatherContainerComponent, children: childrenRoutes },
+  { path: '**', redirectTo: '/'}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { navigatorToken } from './navigator.token';
 
 @Injectable({
@@ -23,6 +23,10 @@ export class GetWeatherServiceService {
 
   public searchWeather(city: string) {
     return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=5e172bca01d919aeab3be36d301d92f8`)
+  }
+
+  public searchWeatherFromaState(cities: string[]){
+    return this.http.get(`https://api.openweathermap.org/data/2.5/group?id=${cities.toString()}&units=metric&appid=5e172bca01d919aeab3be36d301d92f8`);
   }
 
   private getLocation(): Observable<any> {

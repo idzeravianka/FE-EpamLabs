@@ -1,5 +1,9 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { WeatherData } from '../model';
+import { CityWeatherData } from '../model';
+import { Observable } from 'rxjs';
+import { WeatherDataFacade } from 'src/store/citiesWeatherData/weather.facade';
+import { SaveCityService } from '../services/save-city.service';
+import { GetWeatherServiceService } from '../services/get-weather-service.service';
 
 @Component({
   selector: 'weather-container',
@@ -8,11 +12,19 @@ import { WeatherData } from '../model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeatherContainerComponent implements OnInit {
+  public weatherData$: Observable<CityWeatherData[]>;
+  public cities: string[];
 
-  @Input() weatherData: WeatherData;
+  constructor(
+    private weatherFacade: WeatherDataFacade,
+    private _saveCityService: SaveCityService,
+    private _getWeatherService: GetWeatherServiceService
+  ) { }
 
-  constructor() { }
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.weatherData$ = this.weatherFacade.weather$;
+    this.cities = this._saveCityService.getCitiesFromLocalStorage();
+    this.weatherFacade.searchAllCitiesFromStorage(this.cities);
+  }
 
 }

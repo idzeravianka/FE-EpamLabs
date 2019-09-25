@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { WeatherData } from 'src/app/model';
+import { CityWeatherData } from 'src/app/model';
 
 export enum WeatherActionTypes{
     LoadWeatherData = 'Load Weather Data',
@@ -8,6 +8,8 @@ export enum WeatherActionTypes{
     SearchWeatherData = 'Search Weather Data',
     SearchWeatherDataSuccess = 'Search Weather Data (Success)',
     SearchWeatherDataError = 'Search Weather Data (Error)',
+    SearchAllCitiesFromStorage = 'Search All Cities From State',
+    SearchAllCitiesFromStorageSuccess = 'Search All Cities From State (Success)'
 }
 
 export class LoadWeatherData implements Action{
@@ -19,13 +21,13 @@ export class LoadWeatherData implements Action{
 export class LoadWeatherDataSuccess implements Action{
     public readonly type = WeatherActionTypes.LoadWeatherDataSuccess;
 
-    constructor(public payload: WeatherData) {}
+    constructor(public payload: CityWeatherData) {}
 }
 
 export class LoadWeatherDataError implements Action{
     public readonly type = WeatherActionTypes.LoadWeatherDataError;
 
-    constructor(public payload: WeatherData) {}
+    constructor(public payload: CityWeatherData) {}
 }
 
 export class SearchWeatherData implements Action{
@@ -37,13 +39,25 @@ export class SearchWeatherData implements Action{
 export class SearchWeatherDataSuccess implements Action{
     public readonly type = WeatherActionTypes.SearchWeatherDataSuccess;
 
-    constructor(public payload: WeatherData) {}
+    constructor(public payload: CityWeatherData) {}
 }
 
 export class SearchWeatherDataError implements Action{
     public readonly type = WeatherActionTypes.SearchWeatherDataError;
 
-    constructor(public payload: WeatherData) {}
+    constructor(public payload: CityWeatherData) {}
+}
+
+export class SearchAllCitiesFromStorage implements Action{
+    public readonly type = WeatherActionTypes.SearchAllCitiesFromStorage;
+
+    constructor(public payload: string[]){}
+}
+
+export class SearchAllCitiesFromStorageSuccess implements Action{
+    public readonly type = WeatherActionTypes.SearchAllCitiesFromStorageSuccess;
+
+    constructor(public payload: CityWeatherData){}
 }
 
 export type WeatherActions = 
@@ -52,4 +66,6 @@ export type WeatherActions =
     | LoadWeatherDataError
     | SearchWeatherData
     | SearchWeatherDataSuccess
-    | SearchWeatherDataError;
+    | SearchWeatherDataError
+    | SearchAllCitiesFromStorage
+    | SearchAllCitiesFromStorageSuccess;

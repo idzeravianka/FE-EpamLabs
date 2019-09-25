@@ -1,10 +1,15 @@
-import { weatherReducer } from './weather.reducer';
-import { WeatherState } from './interfaces';
+import { weatherReducer } from './citiesWeatherData/weather.reducer';
+import { WeatherState } from './citiesWeatherData/interfaces';
+
+import { currentCityReducer } from './currentCityWeatherData/currentCity.reducer';
+import { CurrentCityState } from './currentCityWeatherData/interfaces';
 
 export interface State{
-    weatherData: WeatherState;
+    citiesWeatherData: WeatherState;
+    currentCityState: CurrentCityState;
 }
 
 export const reducers = { 
-    weather: weatherReducer
+    citiesWeatherData: weatherReducer,
+    currentCityState: currentCityReducer
 }

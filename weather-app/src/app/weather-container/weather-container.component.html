@@ -1,4 +1,4 @@
-<div weatherDerective addColor={{weatherData.temperature}}>
-    <h3>{{weatherData.city}}</h3>
-    <p>{{weatherData.temperature | temperaturePipe}}</p>
+<div *ngFor="let city of weatherData$ | async">
+    <a [routerLink]="['/city', city.city]"><weather-card [weatherData] = "city"></weather-card></a>
 </div>
+<router-outlet></router-outlet>

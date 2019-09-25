@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherData } from './model';
-import { WeatherDataFacade } from 'src/store';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +6,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  public weatherData$: Observable<WeatherData>;
 
-  constructor(private weatherFacade: WeatherDataFacade) {}
+  constructor() {}
 
   ngOnInit(){
-    this.weatherData$ = this.weatherFacade.weather$;
-    this.weatherFacade.loadWeather();
   }
 }

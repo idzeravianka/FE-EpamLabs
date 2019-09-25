@@ -6,7 +6,7 @@ import { WeatherDerectiveDirective } from './derectives/weather-derective.direct
 import { TemperaturePipePipe } from './pipes/temperature-pipe.pipe';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { WeatherDataFacade } from 'src/store/weather.facade';
+import { WeatherDataFacade } from 'src/store/citiesWeatherData/weather.facade';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientModule } from '@angular/common/http';
 

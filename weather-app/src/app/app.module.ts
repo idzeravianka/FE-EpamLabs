@@ -10,12 +10,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from '../store/store.config';
-import { WeatherDataFacade } from 'src/store';
-import { WeatherEffects } from 'src/store/weather.effects';
+import { WeatherDataFacade } from 'src/store/citiesWeatherData/weather.facade';
+import { WeatherEffects } from 'src/store/citiesWeatherData/weather.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { WeatherDerectiveDirective } from './derectives/weather-derective.directive';
 import { TemperaturePipePipe } from './pipes/temperature-pipe.pipe';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { CurrentWeatherComponent } from './current-weather/current-weather.component';
+import { WeatherCardComponent } from './weather-card/weather-card.component';
+import { CityWeatherComponent } from './city-weather/city-weather.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { SearchFormComponent } from './search-form/search-form.component';
     WeatherContainerComponent,
     WeatherDerectiveDirective,
     TemperaturePipePipe,
-    SearchFormComponent
+    SearchFormComponent,
+    CurrentWeatherComponent,
+    WeatherCardComponent,
+    CityWeatherComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +38,8 @@ import { SearchFormComponent } from './search-form/search-form.component';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({}),
-    StoreModule.forFeature('weatherDataState', reducers.weather, {}),
+    StoreModule.forFeature('citiesWeatherDataState', reducers.citiesWeatherData, {}),
+    StoreModule.forFeature('currentCityState', reducers.currentCityState, {}),
     EffectsModule.forRoot([
       WeatherEffects
     ]),
