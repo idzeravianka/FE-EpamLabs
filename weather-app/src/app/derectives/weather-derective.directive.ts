@@ -7,8 +7,6 @@ import { of } from 'rxjs/internal/observable/of';
 export class WeatherDerectiveDirective implements OnChanges {
   private _currenColor: number;
 
-  // public currenColor$ = of(this._currenColor);
-
   constructor(private _elementRef: ElementRef, private _renderer: Renderer2) { }
 
   @Input() set addColor(temperature: number) {
@@ -17,9 +15,9 @@ export class WeatherDerectiveDirective implements OnChanges {
 
   changeColor(): void {
     if (this._currenColor <= 15) {
-      this._renderer.setStyle(this._elementRef.nativeElement, 'background-color', 'blue')
+      this._renderer.addClass(this._elementRef.nativeElement, 'cold-weather');
     } else {
-      this._renderer.setStyle(this._elementRef.nativeElement, 'background-color', 'red');
+      this._renderer.addClass(this._elementRef.nativeElement, 'hot-weather');
     }
   }
 

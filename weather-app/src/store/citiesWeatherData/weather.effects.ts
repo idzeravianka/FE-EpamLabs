@@ -38,7 +38,6 @@ export class WeatherEffects {
         mergeMap((city: any): any => {
             return this.getWeatherService.searchWeather(city.payload).pipe(
                 map((resp: any) => {
-                    console.log(resp);
                     return new weatherActions.SearchWeatherDataSuccess({ city: resp.city.name, description: resp.list[0].weather[0].description, icon:resp.list[0].weather[0].icon, temperature: resp.list[0].main.temp });
                 }),
                 catchError((): any => {
@@ -54,7 +53,6 @@ export class WeatherEffects {
         switchMap((cities: any): any => {
             return this.getWeatherService.searchWeatherFromaState(cities.payload).pipe(
                 switchMap((resp: any) => {
-                    console.log(resp);
                     let actions: Action[] = [];
                     resp.list.map(currentCity => {
                         actions.push(new weatherActions.SearchAllCitiesFromStorageSuccess({city: currentCity.name, description: currentCity.weather[0].description, icon:currentCity.weather[0].icon, temperature: currentCity.main.temp}));

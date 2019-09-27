@@ -19,6 +19,9 @@ import { SearchFormComponent } from './search-form/search-form.component';
 import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 import { WeatherCardComponent } from './weather-card/weather-card.component';
 import { CityWeatherComponent } from './city-weather/city-weather.component';
+import { CurrentWeatherUsingLocationComponent } from './current-weather-using-location/current-weather-using-location.component';
+import { CurrentCityDataFacade } from 'src/store/currentCityWeatherData/currentCity.facade';
+import { CurrentCityDataEffects } from 'src/store/currentCityWeatherData/currentCity.efects';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { CityWeatherComponent } from './city-weather/city-weather.component';
     SearchFormComponent,
     CurrentWeatherComponent,
     WeatherCardComponent,
-    CityWeatherComponent
+    CityWeatherComponent,
+    CurrentWeatherUsingLocationComponent
   ],
   imports: [
     BrowserModule,
@@ -41,11 +45,12 @@ import { CityWeatherComponent } from './city-weather/city-weather.component';
     StoreModule.forFeature('citiesWeatherDataState', reducers.citiesWeatherData, {}),
     StoreModule.forFeature('currentCityState', reducers.currentCityState, {}),
     EffectsModule.forRoot([
-      WeatherEffects
+      WeatherEffects,
+      CurrentCityDataEffects
     ]),
     StoreDevtoolsModule.instrument({maxAge: 25}),
   ],
-  providers: [WeatherDataFacade, 
+  providers: [WeatherDataFacade, CurrentCityDataFacade
     //{provide: navigatorToken, useValue: navigatorToken}
   ],
   bootstrap: [AppComponent],

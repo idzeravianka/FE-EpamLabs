@@ -1,4 +1,9 @@
-<form [formGroup] = "searchFormControl">
-    <input type="text" placeholder="Enter city..." formControlName="cityControl"/>
+<form class="search-form" [formGroup] = "searchFormControl">
+    <input 
+        class="search-form__input" 
+        type="text" 
+        placeholder="Enter city..." 
+        formControlName="cityControl"
+    />
     <button type="submit" (click)="addCityToLocalStorage($event)" [disabled]="searchFormControl.invalid">Add</button>
 </form>

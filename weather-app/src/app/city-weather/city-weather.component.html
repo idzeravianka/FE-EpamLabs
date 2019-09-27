@@ -1,4 +1,6 @@
-<h2>{{city.city}}</h2>
-<h3>{{city.temperature | temperaturePipe}}</h3>
-<h4>{{city.description}}</h4>
-<img src="https://openweathermap.org/img/w/{{currentCity.icon}}.png"/>
+<div *ngIf="city">
+    <h2>{{city.city}}</h2>
+    <h3>{{city.temperature | temperaturePipe}}</h3>
+    <h4>{{city.description}}</h4>
+    <img src="https://openweathermap.org/img/w/{{city.icon}}.png" />
+</div>

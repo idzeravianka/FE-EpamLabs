@@ -21,7 +21,6 @@ export class SaveCityService {
         } else{
           existing.unshift(response.city.id);
           this._facade.searchWeather(response.city.name);
-          console.log(response);
         }
 
         localStorage.setItem('citiesId', existing.toString());

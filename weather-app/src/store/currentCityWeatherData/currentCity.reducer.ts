@@ -13,11 +13,13 @@ export const currentCityReducer = (
             };
         case CurrentCityActionTypes.LoadCurrentCitySuccess:
             return{
-                ...state
+                ...state,
+                currentCityData: action.payload
             };
         case CurrentCityActionTypes.LoadCurrentCityError:
             return{
-                ...state
+                ...state,
+                currentCityData: action.payload
             };
         default: return state;
     }

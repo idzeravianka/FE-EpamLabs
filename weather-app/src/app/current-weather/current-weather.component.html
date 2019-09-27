@@ -1,8 +1,1 @@
-<!-- <h2>{{currentCity.city}}</h2>
-<h3>{{currentCity.temperature | temperaturePipe}}</h3>
-<h4>{{currentCity.description}}</h4>
-<img src="https://openweathermap.org/img/w/{{currentCity.icon}}.png"/> -->
-
-
-<city-weather *ngIf="!!cityName" [city]="(cityWeather$ | async)(cityName)"></city-weather>
-<!-- <city-weather></city-weather> -->
+<city-weather [city]="cityWeather$(cityId) | async"></city-weather>

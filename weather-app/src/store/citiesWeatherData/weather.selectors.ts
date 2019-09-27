@@ -13,7 +13,7 @@ const getWeatherData = createSelector(
 
 const getWeatherByCityName = createSelector(
     getWeatherData,
-    (citiesWeatherData) => (cityName: string) => {
+    (citiesWeatherData, cityName: string) => {
         return citiesWeatherData.find(cityWeather => cityWeather.city === cityName)
     } 
 )

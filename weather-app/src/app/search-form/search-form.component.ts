@@ -16,19 +16,26 @@ import { SaveCityService } from '../services/save-city.service';
 export class SearchFormComponent implements OnInit {
 
   public searchFormControl: FormGroup;
+  public formStatus: boolean;
 
   constructor(
     private _weatherFacade: WeatherDataFacade, 
     private _validationService: ValidationDataService,
     private _saveCityService: SaveCityService) {
     this.searchFormControl = new FormGroup({
-      "cityControl": new FormControl('', [Validators.minLength(5) ,Validators.required], validateCorrectCityName(this._validationService)),
+      "cityControl": new FormControl('', [Validators.minLength(3) ,Validators.required], validateCorrectCityName(this._validationService)),
     })
   }
 
   ngOnInit() {
-    // this.searchFormControl.statusChanges.pipe().subscribe(status => console.log(status));
+    this.searchFormControl.statusChanges.pipe().subscribe(status => {status === 'VALID' ? this.formStatus = true : this.formStatus = false});
   }
+
+  // private onStatusChange(status: string): void{
+  //   if ( status === 'VALID'){
+  //     this.searchFormControl.status
+  //   }
+  // }
 
   public searchCity(): void {
     this._weatherFacade.searchWeather(this.searchFormControl.controls.cityControl.value);

@@ -1,0 +1,22 @@
+.search-form{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.search-form__input{
+    width: 280px;
+    height: 25px;
+    padding: 0 3px;
+    font-size: 18px;
+    border-radius: 7px;
+    border: 1px solid black;
+    outline: none;
+}
+
+.search-form__input.ng-valid{
+    background-color: rgba(128, 248, 168, 0.27);
+}
+
+.search-form__input.ng-invalid.ng-touched{
+    background-color: rgba(248, 136, 128, 0.27);
+}

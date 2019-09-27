@@ -1,0 +1,12 @@
+.hot-weather{
+    background-color: rgba(250, 142, 142, 0.26);
+}
+
+.cold-weather{
+    background-color: rgba(100, 207, 226, 0.267);
+}
+
+.hot-weather, .cold-weather{
+    border-radius: 10px;
+    text-align: center;
+}
