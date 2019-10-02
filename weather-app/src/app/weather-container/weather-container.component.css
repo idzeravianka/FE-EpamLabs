@@ -1,8 +1,14 @@
 .weather-container{
     display: flex;
+    width: 100%;
 }
-.weather-container div{
+.weather-cards{
     max-width: 100px;
+}
+.current-weather-container{
+    width:  100%;
+    display: flex;
+    justify-content: center;
 }
 a{
     text-decoration: none;
